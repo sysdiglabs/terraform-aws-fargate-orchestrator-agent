@@ -1,7 +1,7 @@
 variable "name" {
   description = "Identifier to tag all resources"
   type = string
-  default = ""
+  default = "sysdig-fargate-orchestrator"
 }
 
 variable "vpc_id" {
@@ -24,7 +24,6 @@ variable "agent_image" {
 variable "access_key" {
   description = "Sysdig access key"
   type = string
-  default = ""
 }
 
 variable "collector_host" {
@@ -46,25 +45,23 @@ variable "agent_tags" {
 }
 
 variable "check_collector_certificate" {
-  description = ""
+  description = "Whether to check the collector certificate when connecting. Mainly for development."
   type = string
   default = "true"
 }
 
 variable "subnet_a" {
-  description = ""
+  description = "First subnet in VPC"
   type = string
-  default = ""
 }
 
 variable "subnet_b" {
-  description = ""
+  description = "Second subnet in VPC"
   type = string
-  default = ""
 }
 
 variable "assign_public_ip" {
-  description = ""
+  description = "Provisions a public IP for the service. Required when using an Internet Gateway for egress."
   type = bool
   default = false
 }
