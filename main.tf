@@ -6,7 +6,7 @@ resource "aws_cloudwatch_log_group" "orchestrator_agent" {
   name = "${var.name}-logs"
 }
 
-data "template_file" "agent_container_definitions" {
+data "template_file" "orchestrator_agent_container_definitions" {
   template = file("${path.module}/container-definitions/orchestrator-agent.json")
 
   vars = {

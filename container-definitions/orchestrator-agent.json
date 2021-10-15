@@ -29,6 +29,10 @@
                         {
                                 "name": "TAGS",
                                 "value": "${agent_tags}"
+                        },
+                        {
+                                "name": "ADDITIONAL_CONF",
+                                "value": "agentino_port: ${orchestrator_port}"
                         }
                 ],
                 "logConfiguration": {
