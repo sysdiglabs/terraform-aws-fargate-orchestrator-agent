@@ -18,12 +18,12 @@ variable "access_key" {
 }
 
 variable "subnet_a" {
-  description = "First subnet in VPC"
+  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
   type = string
 }
 
 variable "subnet_b" {
-  description = "Second subnet in VPC"
+  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
   type = string
 }
 

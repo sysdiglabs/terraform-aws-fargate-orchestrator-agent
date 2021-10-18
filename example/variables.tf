@@ -17,12 +17,12 @@ variable "subnet_a" {
 }
 
 variable "subnet_b" {
-  description = "Second subnet in VPC"
+  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
   type = string
 }
 
 variable "sysdig_access_key" {
-  description = "Sysdig access key"
+  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
   type = string
 }
 
