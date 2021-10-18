@@ -1,6 +1,8 @@
 resource "aws_security_group" "orchestrator_agent" {
   description = "Allow agentino to connect"
   vpc_id = var.vpc_id
+
+  tags = merge(var.tags, var.default_tags)
 }
 
 resource "aws_security_group_rule" "orchestrator_agent_ingress_rule" {

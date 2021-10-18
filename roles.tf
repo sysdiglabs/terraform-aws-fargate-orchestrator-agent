@@ -13,6 +13,8 @@ resource "aws_iam_role" "orchestrator_agent_execution_role" {
   })
 
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
+
+  tags = merge(var.tags, var.default_tags)
 }
 
 resource "aws_iam_role" "orchestrator_agent_task_role" {
@@ -51,4 +53,6 @@ resource "aws_iam_role" "orchestrator_agent_task_role" {
       ]
     })
   }
+
+  tags = merge(var.tags, var.default_tags)
 }

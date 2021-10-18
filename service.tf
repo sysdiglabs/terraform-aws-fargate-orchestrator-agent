@@ -23,4 +23,6 @@ resource "aws_ecs_service" "orchestrator_agent" {
 
     assign_public_ip = var.assign_public_ip
   }
+
+  tags = merge(var.tags, var.default_tags)
 }

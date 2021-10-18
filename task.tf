@@ -7,4 +7,6 @@ resource "aws_ecs_task_definition" "orchestrator_agent" {
   cpu = "2048"
   memory = "8GB"
   container_definitions = data.template_file.orchestrator_agent_container_definitions.rendered
+
+  tags = merge(var.tags, var.default_tags)
 }

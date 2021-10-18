@@ -65,3 +65,18 @@ variable "assign_public_ip" {
   type = bool
   default = false
 }
+
+variable "tags" {
+  description = "Extra tags for all Sysdig Fargate Orchestrator resources"
+  type = map(string)
+  default = {}
+}
+
+variable "default_tags" {
+  description = "Default tags for all Sysdig Fargate Orchestrator resources"
+  type = map(string)
+  default = {
+    Application = "sysdig"
+    Module = "fargate-orchestrator-agent"
+  }
+}

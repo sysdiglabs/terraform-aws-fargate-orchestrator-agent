@@ -6,6 +6,8 @@ resource "aws_lb" "orchestrator_agent" {
     var.subnet_a,
     var.subnet_b
   ]
+
+  tags = merge(var.tags, var.default_tags)
 }
 
 resource "aws_lb_target_group" "orchestrator_agent" {
@@ -14,6 +16,8 @@ resource "aws_lb_target_group" "orchestrator_agent" {
   target_type = "ip"
   deregistration_delay = 60
   vpc_id = var.vpc_id
+
+  tags = merge(var.tags, var.default_tags)
 }
 
 resource "aws_lb_listener" "orchestrator_agent" {
@@ -25,4 +29,6 @@ resource "aws_lb_listener" "orchestrator_agent" {
     type = "forward"
     target_group_arn = aws_lb_target_group.orchestrator_agent.arn
   }
+
+  tags = merge(var.tags, var.default_tags)
 }
