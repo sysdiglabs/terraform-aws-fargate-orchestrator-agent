@@ -79,7 +79,7 @@ No modules.
 | <a name="input_collector_host"></a> [collector\_host](#input\_collector\_host) | Sysdig collector host | `string` | `"collector.sysdigcloud.com"` | no |
 | <a name="input_collector_port"></a> [collector\_port](#input\_collector\_port) | Sysdig collector port | `string` | `"6443"` | no |
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags for all Sysdig Fargate Orchestrator resources | `map(string)` | <pre>{<br>  "Application": "sysdig",<br>  "Module": "fargate-orchestrator-agent"<br>}</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | Identifier to tag all resources | `string` | `"sysdig-fargate-orchestrator"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Identifier for module resources | `string` | `"sysdig-fargate-orchestrator"` | no |
 | <a name="input_orchestrator_port"></a> [orchestrator\_port](#input\_orchestrator\_port) | Port for the workload agent to connect | `number` | `6667` | no |
 | <a name="input_subnet_a"></a> [subnet\_a](#input\_subnet\_a) | First subnet in VPC | `string` | n/a | yes |
 | <a name="input_subnet_b"></a> [subnet\_b](#input\_subnet\_b) | Second subnet in VPC | `string` | n/a | yes |

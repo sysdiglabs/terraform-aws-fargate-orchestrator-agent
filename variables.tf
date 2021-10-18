@@ -1,5 +1,8 @@
+#
+# Required variables
+#
 variable "name" {
-  description = "Identifier to tag all resources"
+  description = "Identifier for module resources"
   type = string
   default = "sysdig-fargate-orchestrator"
 }
@@ -9,6 +12,24 @@ variable "vpc_id" {
   type = string
 }
 
+variable "access_key" {
+  description = "Sysdig access key"
+  type = string
+}
+
+variable "subnet_a" {
+  description = "First subnet in VPC"
+  type = string
+}
+
+variable "subnet_b" {
+  description = "Second subnet in VPC"
+  type = string
+}
+
+#
+# Optional variables
+#
 variable "orchestrator_port" {
   description = "Port for the workload agent to connect"
   type = number
@@ -19,11 +40,6 @@ variable "agent_image" {
   description = "Orchestrator agent image"
   type = string
   default = "quay.io/sysdig/orchestrator-agent:latest"
-}
-
-variable "access_key" {
-  description = "Sysdig access key"
-  type = string
 }
 
 variable "collector_host" {
@@ -48,16 +64,6 @@ variable "check_collector_certificate" {
   description = "Whether to check the collector certificate when connecting. Mainly for development."
   type = string
   default = "true"
-}
-
-variable "subnet_a" {
-  description = "First subnet in VPC"
-  type = string
-}
-
-variable "subnet_b" {
-  description = "Second subnet in VPC"
-  type = string
 }
 
 variable "assign_public_ip" {
