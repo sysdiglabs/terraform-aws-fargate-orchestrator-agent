@@ -98,10 +98,7 @@ resource "aws_ecs_service" "example_service" {
   platform_version = "1.4.0"
 
   network_configuration {
-    subnets = [
-      var.subnet_a,
-      var.subnet_b
-    ]
+    subnets = var.subnets
     security_groups = [ aws_security_group.example_security_group.id ]
     assign_public_ip = true
   }

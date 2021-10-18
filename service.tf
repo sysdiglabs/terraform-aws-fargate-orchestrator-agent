@@ -14,10 +14,7 @@ resource "aws_ecs_service" "orchestrator_agent" {
   }
 
   network_configuration {
-    subnets = [
-      var.subnet_a,
-      var.subnet_b
-    ]
+    subnets = var.subnets
 
     security_groups = [ aws_security_group.orchestrator_agent.id ]
 

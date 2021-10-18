@@ -2,10 +2,7 @@ resource "aws_lb" "orchestrator_agent" {
   internal = true
   load_balancer_type = "network"
   ip_address_type = "ipv4"
-  subnets = [
-    var.subnet_a,
-    var.subnet_b
-  ]
+  subnets = var.subnets
 
   tags = merge(var.tags, var.default_tags)
 }

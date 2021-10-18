@@ -17,14 +17,9 @@ variable "access_key" {
   type = string
 }
 
-variable "subnet_a" {
-  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
-  type = string
-}
-
-variable "subnet_b" {
-  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
-  type = string
+variable "subnets" {
+  description = "A list of subnets that can access the internet and are reachable by instrumented services. The subnets must be in at least 2 different AZs."
+  type = list(string)
 }
 
 #

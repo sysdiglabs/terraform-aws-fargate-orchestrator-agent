@@ -13,8 +13,7 @@ module "sysdig_orchestrator_agent" {
   name = "test-fargate-orchestrator"
 
   vpc_id = var.my_vpc_id
-  subnet_a = var.my_subnet_a_id
-  subnet_b = var.my_subnet_b_id
+  subnet = [var.my_subnet_a, var.my_subnet_b_id]
   access_key = var.my_sysdig_access_key
   assign_public_ip = true  # if using Internet Gateway
 }
@@ -81,8 +80,7 @@ No modules.
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags for all Sysdig Fargate Orchestrator resources | `map(string)` | <pre>{<br>  "Application": "sysdig",<br>  "Module": "fargate-orchestrator-agent"<br>}</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | Identifier for module resources | `string` | `"sysdig-fargate-orchestrator"` | no |
 | <a name="input_orchestrator_port"></a> [orchestrator\_port](#input\_orchestrator\_port) | Port for the workload agent to connect | `number` | `6667` | no |
-| <a name="input_subnet_a"></a> [subnet\_a](#input\_subnet\_a) | First subnet in VPC | `string` | n/a | yes |
-| <a name="input_subnet_b"></a> [subnet\_b](#input\_subnet\_b) | Second subnet in VPC | `string` | n/a | yes |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | A list of subnets that can access the internet and are reachable by instrumented services. The subnets must be in at least 2 different AZs. | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Extra tags for all Sysdig Fargate Orchestrator resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC where the orchestrator should be installed | `string` | n/a | yes |
 

@@ -11,18 +11,13 @@ variable "vpc_id" {
   type = string
 }
 
-variable "subnet_a" {
-  description = "First subnet in VPC"
-  type = string
-}
-
-variable "subnet_b" {
-  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
-  type = string
+variable "subnets" {
+  description = "A list of subnets that can access the internet and are reachable by instrumented services. The subnets must be in at least 2 different AZs."
+  type = list(string)
 }
 
 variable "sysdig_access_key" {
-  description = "A subnet that can access internet and is reachable by instrumented services. This must be in a different AZ for HA."
+  description = "Sysdig access key"
   type = string
 }
 
