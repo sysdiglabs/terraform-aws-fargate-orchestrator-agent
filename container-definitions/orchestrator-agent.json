@@ -1,0 +1,47 @@
+[
+        {
+                "name": "OrchestratorAgent",
+                "image": "${agent_image}",
+                "portMappings": [
+                        {
+                                "hostPort": ${orchestrator_port},
+                                "protocol": "tcp",
+                                "containerPort": ${orchestrator_port}
+                        }
+                ],
+                "environment": [
+                        {
+                                "name": "ACCESS_KEY",
+                                "value": "${access_key}"
+                        },
+                        {
+                                "name": "CHECK_CERTIFICATE",
+                                "value": "${check_certificate}"
+                        },
+                        {
+                                "name": "COLLECTOR",
+                                "value": "${collector_host}"
+                        },
+                        {
+                                "name": "COLLECTOR_PORT",
+                                "value": "${collector_port}"
+                        },
+                        {
+                                "name": "TAGS",
+                                "value": "${agent_tags}"
+                        },
+                        {
+                                "name": "ADDITIONAL_CONF",
+                                "value": "agentino_port: ${orchestrator_port}"
+                        }
+                ],
+                "logConfiguration": {
+                        "logDriver": "awslogs",
+                        "options": {
+                                "awslogs-group": "${awslogs_group}",
+                                "awslogs-region": "${awslogs_region}",
+                                "awslogs-stream-prefix": "ecs"
+                        }
+                }
+        }
+]
