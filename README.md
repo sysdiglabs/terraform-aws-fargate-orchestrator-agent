@@ -13,7 +13,7 @@ module "sysdig_orchestrator_agent" {
   name = "test-fargate-orchestrator"
 
   vpc_id = var.my_vpc_id
-  subnet = [var.my_subnet_a, var.my_subnet_b_id]
+  subnets = [var.my_subnet_a_id, var.my_subnet_b_id]
   access_key = var.my_sysdig_access_key
   assign_public_ip = true  # if using Internet Gateway
 }
