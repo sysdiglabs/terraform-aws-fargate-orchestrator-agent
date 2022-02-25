@@ -7,8 +7,8 @@ This Terraform module deploys a Sysdig orchestrator agent for Fargate into a spe
 The module can be created using the IDs of your VPC and two subnets capable of accessing the internet.
 
 ```
-module "sysdig_orchestrator_agent" {
-  source = "../sysdig-orchestrator-agent"
+module "fargate-orchestrator-agent" {
+  source = "../terraform-aws-fargate-orchestrator-agent"
 
   name = "test-fargate-orchestrator"
 
@@ -24,8 +24,8 @@ The module outputs can be plugged into the Fargate workload agent data source in
 data "sysdig_fargate_workload_agent" "instrumented" {
   ...
 
-  orchestrator_host = module.sysdig_orchestrator_agent.orchestrator_host
-  orchestrator_port = module.sysdig_orchestrator_agent.orchestrator_port
+  orchestrator_host = module.fargate-orchestrator-agent.orchestrator_host
+  orchestrator_port = module.fargate-orchestrator-agent.orchestrator_port
 }
 ```
 
