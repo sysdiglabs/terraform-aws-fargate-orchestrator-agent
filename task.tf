@@ -6,7 +6,18 @@ resource "aws_ecs_task_definition" "orchestrator_agent" {
   requires_compatibilities = ["FARGATE"]
   cpu = "2048"
   memory = "8192"
-  container_definitions = data.template_file.orchestrator_agent_container_definitions.rendered
+
+  container_definitions = templatefile("${path.module}/container-definitions/orchestrator-agent.json", {
+    agent_image = var.agent_image
+    access_key = var.access_key
+    collector_host = var.collector_host
+    collector_port = var.collector_port
+    agent_tags = var.agent_tags
+    check_certificate = var.check_collector_certificate
+    orchestrator_port = var.orchestrator_port
+    awslogs_region = data.aws_region.current_region.name
+    awslogs_group = "${var.name}-logs"
+  })
 
   tags = merge(var.tags, var.default_tags)
 }
