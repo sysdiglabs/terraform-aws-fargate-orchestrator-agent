@@ -10,7 +10,7 @@ resource "aws_iam_role" "orchestrator_agent_task_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 
   inline_policy {
-    name = "root"
+    name   = "root"
     policy = data.aws_iam_policy_document.task_policy.json
   }
 
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
   }
