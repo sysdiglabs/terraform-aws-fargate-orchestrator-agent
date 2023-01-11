@@ -37,7 +37,19 @@ locals {
       {
         name  = "ADDITIONAL_CONF",
         value = format("agentino_port: %s", tostring(var.orchestrator_port))
-      }
+      },
+      {
+        name  = "COLLECTOR_CA_CERTIFICATE_TYPE",
+        value = var.collector_ca_certificate.type
+      },
+      {
+        name  = "COLLECTOR_CA_CERTIFICATE_VALUE",
+        value = var.collector_ca_certificate.value
+      },
+      {
+        name  = "COLLECTOR_CA_CERTIFICATE_PATH",
+        value = var.collector_ca_certificate.path
+      },
     ]
   )
 }

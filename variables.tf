@@ -94,3 +94,17 @@ variable "default_tags" {
     Module      = "fargate-orchestrator-agent"
   }
 }
+
+variable "collector_ca_certificate" {
+  description = "Configures the collector custom CA certificate"
+  type = object({
+    type  = string
+    value = string
+    path  = string
+  })
+  default = ({
+    type  = "base64"
+    value = ""
+    path  = "/ssl/cert.pem"
+  })
+}
