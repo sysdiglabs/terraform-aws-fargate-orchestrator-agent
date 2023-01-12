@@ -9,32 +9,8 @@
                                 "containerPort": ${orchestrator_port}
                         }
                 ],
-                "environment": [
-                        {
-                                "name": "ACCESS_KEY",
-                                "value": "${access_key}"
-                        },
-                        {
-                                "name": "CHECK_CERTIFICATE",
-                                "value": "${check_certificate}"
-                        },
-                        {
-                                "name": "COLLECTOR",
-                                "value": "${collector_host}"
-                        },
-                        {
-                                "name": "COLLECTOR_PORT",
-                                "value": "${collector_port}"
-                        },
-                        {
-                                "name": "TAGS",
-                                "value": "${agent_tags}"
-                        },
-                        {
-                                "name": "ADDITIONAL_CONF",
-                                "value": "agentino_port: ${orchestrator_port}"
-                        }
-                ],
+                "secrets": ${jsonencode(secrets)},
+                "environment": ${jsonencode(environment)},
                 "logConfiguration": {
                         "logDriver": "awslogs",
                         "options": {
