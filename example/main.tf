@@ -14,14 +14,9 @@ module "sysdig_orchestrator_agent" {
 data "sysdig_fargate_workload_agent" "instrumented" {
   container_definitions = jsonencode([
     {
-      "image" : "quay.io/rehman0288/busyboxplus:latest",
-      "name" : "busybox",
-      "EntryPoint" : [
-        "watch",
-        "-n60",
-        "cat",
-        "/etc/shadow"
-      ],
+      "image" : "falcosecurity/event-generator",
+      "name" : "EventGenerator",
+      "command" : ["run", "syscall", "--loop"],
       "logConfiguration" : {
         "logDriver" : "awslogs",
         "options" : {
