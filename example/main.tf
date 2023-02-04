@@ -5,7 +5,7 @@ module "sysdig_orchestrator_agent" {
 
   vpc_id           = var.vpc_id
   subnets          = var.subnets
-  collector_host   = "collector-staging2.sysdigcloud.com"
+  collector_host   = "collector.sysdigcloud.com"
   collector_port   = "6443"
   access_key       = var.sysdig_access_key
   assign_public_ip = true
