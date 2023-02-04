@@ -28,7 +28,7 @@ data "sysdig_fargate_workload_agent" "instrumented" {
     }
   ])
 
-  sysdig_access_key = var.sysdig_access_key
+  sysdig_access_key = ""
 
   workload_agent_image = var.sysdig_workload_agent_image
 
