@@ -12,15 +12,6 @@ resource "aws_iam_role" "example_execution_role" {
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
 }
 
-resource "aws_iam_role" "example_task_role" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-
-  inline_policy {
-    name   = "root"
-    policy = data.aws_iam_policy_document.task_policy.json
-  }
-}
-
 resource "aws_security_group" "example_security_group" {
   description = "Allow workload to reach internet"
   vpc_id      = var.vpc_id
@@ -37,7 +28,6 @@ resource "aws_security_group_rule" "example_egress_rule" {
 
 resource "aws_ecs_task_definition" "example_task_definition" {
   family             = var.name
-  task_role_arn      = aws_iam_role.example_task_role.arn
   execution_role_arn = aws_iam_role.example_execution_role.arn
 
   cpu                      = "256"
@@ -72,21 +62,5 @@ data "aws_iam_policy_document" "assume_role_policy" {
       type        = "Service"
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
-  }
-}
-
-data "aws_iam_policy_document" "task_policy" {
-  statement {
-    actions = [
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]
-
-    resources = ["*"]
   }
 }
