@@ -27,7 +27,7 @@ resource "aws_security_group_rule" "example_egress_rule" {
 }
 
 resource "aws_ecs_task_definition" "example_task_definition" {
-  family             = var.name
+  family             = "${var.name}-workload"
   execution_role_arn = aws_iam_role.example_execution_role.arn
 
   cpu                      = "256"
