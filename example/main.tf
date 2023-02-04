@@ -5,8 +5,8 @@ module "sysdig_orchestrator_agent" {
 
   vpc_id           = var.vpc_id
   subnets          = var.subnets
-  collector_host   = "collector.sysdigcloud.com"
-  collector_port   = "6443"
+  collector_host   = var.collector_host
+  collector_port   = var.collector_port
   access_key       = var.sysdig_access_key
   assign_public_ip = true
 }
@@ -16,6 +16,7 @@ data "sysdig_fargate_workload_agent" "instrumented" {
     {
       "image" : "falcosecurity/event-generator",
       "name" : "EventGenerator",
+      "entryPoint" : ["/bin/event-generator"],
       "command" : ["run", "syscall", "--loop"],
       "logConfiguration" : {
         "logDriver" : "awslogs",
