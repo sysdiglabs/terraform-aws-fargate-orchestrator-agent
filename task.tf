@@ -3,7 +3,7 @@ locals {
 }
 
 locals {
-  secrets = local.do_fetch_secret ? [
+  secrets = local.do_fetch_secret_access_key ? [
     {
       name      = "ACCESS_KEY",
       valueFrom = var.access_key
@@ -11,7 +11,7 @@ locals {
   ] : []
 
   environment = concat(
-    local.do_fetch_secret ? [] : [
+    local.do_fetch_secret_access_key ? [] : [
       {
         name  = "ACCESS_KEY",
         value = var.access_key

@@ -27,7 +27,7 @@ variable "access_key" {
 }
 
 locals {
-  do_fetch_secret = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
+  do_fetch_secret_access_key = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
 }
 
 variable "subnets" {
