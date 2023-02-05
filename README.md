@@ -55,7 +55,6 @@ No modules.
 | [aws_ecs_service.orchestrator_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service)                                       | resource    |
 | [aws_ecs_task_definition.orchestrator_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition)                       | resource    |
 | [aws_iam_role.orchestrator_agent_execution_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                              | resource    |
-| [aws_iam_role.orchestrator_agent_task_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                   | resource    |
 | [aws_lb.orchestrator_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb)                                                         | resource    |
 | [aws_lb_listener.orchestrator_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener)                                       | resource    |
 | [aws_lb_target_group.orchestrator_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group)                               | resource    |
