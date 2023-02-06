@@ -11,12 +11,6 @@ locals {
   ] : []
 
   environment = concat(
-    local.do_fetch_secret_access_key ? [] : [
-      {
-        name  = "ACCESS_KEY",
-        value = var.access_key
-      }
-    ],
     [
       {
         name  = "CHECK_CERTIFICATE",
@@ -50,6 +44,12 @@ locals {
         name  = "COLLECTOR_CA_CERTIFICATE_PATH",
         value = var.collector_ca_certificate.path
       },
+    ],
+    local.do_fetch_secret_access_key ? [] : [
+      {
+        name  = "ACCESS_KEY",
+        value = var.access_key
+      }
     ]
   )
 }
