@@ -96,7 +96,7 @@ variable "default_tags" {
 }
 
 variable "collector_ca_certificate" {
-  description = "Configures the collector custom CA certificate"
+  description = "Uploads the collector custom CA certificate"
   type = object({
     type  = string
     value = string
@@ -105,6 +105,20 @@ variable "collector_ca_certificate" {
   default = ({
     type  = "base64"
     value = ""
-    path  = "/ssl/cert.pem"
+    path  = "/ssl/collector_cert.pem"
+  })
+}
+
+variable "proxy_ca_certificate" {
+  description = "Uploads the proxy CA certificate"
+  type = object({
+    type  = string
+    value = string
+    path  = string
+  })
+  default = ({
+    type  = "base64"
+    value = ""
+    path  = "/ssl/proxy_cert.pem"
   })
 }
