@@ -4,7 +4,7 @@ locals {
   do_upload_ca_certificate_collector = var.collector_ca_certificate.value != "" ? true : false
   do_configure_connection_collector = var.collector_configuration.ca_certificate != "" ? true : false
 
-  do_upload_ca_certificate_proxy = var.proxy_ca_certificate.value != "" ? true : false
+  do_upload_ca_certificate_http_proxy = var.http_proxy_ca_certificate.value != "" ? true : false
 }
 
 locals {
@@ -64,18 +64,18 @@ locals {
         value = var.collector_configuration.ca_certificate
       }
     ] : [],
-    local.do_upload_ca_certificate_proxy ? [
+    local.do_upload_ca_certificate_http_proxy ? [
       {
-        name  = "PROXY_CA_CERTIFICATE_TYPE",
-        value = var.proxy_ca_certificate.type
+        name  = "HTTP_PROXY_CA_CERTIFICATE_TYPE",
+        value = var.http_proxy_ca_certificate.type
       },
       {
-        name  = "PROXY_CA_CERTIFICATE_VALUE",
-        value = var.proxy_ca_certificate.value
+        name  = "HTTP_PROXY_CA_CERTIFICATE_VALUE",
+        value = var.http_proxy_ca_certificate.value
       },
       {
-        name  = "PROXY_CA_CERTIFICATE_PATH",
-        value = var.proxy_ca_certificate.path
+        name  = "HTTP_PROXY_CA_CERTIFICATE_PATH",
+        value = var.http_proxy_ca_certificate.path
       },
     ] : []
   )

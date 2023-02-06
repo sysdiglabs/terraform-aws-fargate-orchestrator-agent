@@ -96,7 +96,7 @@ variable "default_tags" {
 }
 
 variable "collector_ca_certificate" {
-  description = "Uploads the collector custom CA certificate"
+  description = "Uploads the collector custom CA certificate to the orchestrator"
   type = object({
     type  = string
     value = string
@@ -119,8 +119,8 @@ variable "collector_configuration" {
   })
 }
 
-variable "proxy_ca_certificate" {
-  description = "Uploads the proxy CA certificate"
+variable "http_proxy_ca_certificate" {
+  description = "Uploads the HTTP proxy CA certificate to the orchestrator"
   type = object({
     type  = string
     value = string
