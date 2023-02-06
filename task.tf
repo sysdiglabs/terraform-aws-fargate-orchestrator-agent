@@ -2,18 +2,27 @@ locals {
   access_key_secretsmanager_reference = startswith(var.access_key, "arn:aws:secretsmanager:") ? [split(":", var.access_key)] : []
 
   do_upload_ca_certificate_collector = var.collector_ca_certificate.value != "" ? true : false
-  do_configure_connection_collector = var.collector_configuration.ca_certificate != "" ? true : false
+  do_configure_connection_collector  = var.collector_configuration.ca_certificate != "" ? true : false
 
   do_upload_ca_certificate_http_proxy = var.http_proxy_ca_certificate.value != "" ? true : false
+  do_configure_connection_http_proxy = var.http_proxy_configuration.proxy_host != "" ? true : false
 }
 
 locals {
-  secrets = local.do_fetch_secret_access_key ? [
-    {
-      name      = "ACCESS_KEY",
-      valueFrom = var.access_key
-    }
-  ] : []
+  secrets = concat(
+    local.do_fetch_secret_access_key ? [
+      {
+        name      = "ACCESS_KEY",
+        valueFrom = var.access_key
+      }
+    ] : [],
+    local.do_configure_connection_http_proxy && local.do_fetch_secret_http_proxy_password ? [
+      {
+        name = "PROXY_PASSWORD"
+        valueFrom = var.http_proxy_configuration.proxy_password
+      }
+    ] : [],
+  )
 
   environment = concat(
     [
@@ -76,6 +85,38 @@ locals {
       {
         name  = "HTTP_PROXY_CA_CERTIFICATE_PATH",
         value = var.http_proxy_ca_certificate.path
+      },
+    ] : [],
+    local.do_configure_connection_http_proxy ? [
+      {
+        name = "PROXY_HOST"
+        value = var.http_proxy_configuration.proxy_host
+      },
+      {
+        name = "PROXY_PORT"
+        value = var.http_proxy_configuration.proxy_port
+      },
+      {
+        name = "PROXY_USER"
+        value = var.http_proxy_configuration.proxy_user
+      },
+      {
+        name = "PROXY_SSL"
+        value = var.http_proxy_configuration.ssl
+      },
+      {
+        name = "PROXY_SSL_VERIFY_CERTIFICATE"
+        value = var.http_proxy_configuration.ssl_verify_certificate
+      },
+      {
+        name = "PROXY_CA_CERTIFICATE"
+        value = var.http_proxy_configuration.ca_certificate
+      },
+    ] : [],
+    local.do_configure_connection_http_proxy && !local.do_fetch_secret_http_proxy_password ? [
+      {
+        name  = "PROXY_PASSWORD",
+        value = var.http_proxy_configuration.proxy_password
       },
     ] : []
   )

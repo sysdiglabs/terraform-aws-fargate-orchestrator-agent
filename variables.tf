@@ -28,6 +28,7 @@ variable "access_key" {
 
 locals {
   do_fetch_secret_access_key = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
+  do_fetch_secret_http_proxy_password = startswith(var.http_proxy_configuration.proxy_password, "arn:aws:secretsmanager:") ? true : false
 }
 
 variable "subnets" {
@@ -112,10 +113,10 @@ variable "collector_ca_certificate" {
 variable "collector_configuration" {
   description = "Advanced configuration options for the connection to the collector"
   type = object({
-    ca_certificate  = string
+    ca_certificate = string
   })
   default = ({
-    ca_certificate = ""
+    ca_certificate = "" # /ssl/collector_cert.pem
   })
 }
 
@@ -130,5 +131,27 @@ variable "http_proxy_ca_certificate" {
     type  = "base64"
     value = ""
     path  = "/ssl/proxy_cert.pem"
+  })
+}
+
+variable "http_proxy_configuration" {
+  description = "Advanced configuration options for the connection to the HTTP proxy"
+  type = object({
+    proxy_host             = string
+    proxy_port             = string
+    proxy_user             = string
+    proxy_password         = string
+    ssl                    = string
+    ssl_verify_certificate = string
+    ca_certificate         = string
+  })
+  default = ({
+    proxy_host             = ""
+    proxy_port             = ""
+    proxy_user             = ""
+    proxy_password         = ""
+    ssl                    = ""
+    ssl_verify_certificate = ""
+    ca_certificate         = "" # /ssl/proxy_cert.pem
   })
 }
