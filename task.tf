@@ -1,5 +1,6 @@
 locals {
   access_key_secretsmanager_reference = startswith(var.access_key, "arn:aws:secretsmanager:") ? [split(":", var.access_key)] : []
+  do_upload_ca_certificate_collector = var.collector_ca_certificate.value != "" ? true : false
 }
 
 locals {
@@ -31,7 +32,15 @@ locals {
       {
         name  = "ADDITIONAL_CONF",
         value = format("agentino_port: %s", tostring(var.orchestrator_port))
-      },
+      }
+    ],
+    local.do_fetch_secret_access_key ? [] : [
+      {
+        name  = "ACCESS_KEY",
+        value = var.access_key
+      }
+    ],
+    local.do_upload_ca_certificate_collector ? [
       {
         name  = "COLLECTOR_CA_CERTIFICATE_TYPE",
         value = var.collector_ca_certificate.type
@@ -44,13 +53,7 @@ locals {
         name  = "COLLECTOR_CA_CERTIFICATE_PATH",
         value = var.collector_ca_certificate.path
       },
-    ],
-    local.do_fetch_secret_access_key ? [] : [
-      {
-        name  = "ACCESS_KEY",
-        value = var.access_key
-      }
-    ]
+    ] : []
   )
 }
 
