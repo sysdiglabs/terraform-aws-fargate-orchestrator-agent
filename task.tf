@@ -1,6 +1,9 @@
 locals {
   access_key_secretsmanager_reference = startswith(var.access_key, "arn:aws:secretsmanager:") ? [split(":", var.access_key)] : []
+
   do_upload_ca_certificate_collector = var.collector_ca_certificate.value != "" ? true : false
+  do_configure_connection_collector = var.collector_configuration.ca_certificate != "" ? true : false
+
   do_upload_ca_certificate_proxy = var.proxy_ca_certificate.value != "" ? true : false
 }
 
@@ -54,6 +57,12 @@ locals {
         name  = "COLLECTOR_CA_CERTIFICATE_PATH",
         value = var.collector_ca_certificate.path
       },
+    ] : [],
+    local.do_configure_connection_collector ? [
+      {
+        name  = "COLLECTOR_CA_CERTIFICATE",
+        value = var.collector_configuration.ca_certificate
+      }
     ] : [],
     local.do_upload_ca_certificate_proxy ? [
       {

@@ -109,6 +109,16 @@ variable "collector_ca_certificate" {
   })
 }
 
+variable "collector_configuration" {
+  description = "Advanced configuration options for the connection to the collector"
+  type = object({
+    ca_certificate  = string
+  })
+  default = ({
+    ca_certificate = ""
+  })
+}
+
 variable "proxy_ca_certificate" {
   description = "Uploads the proxy CA certificate"
   type = object({
