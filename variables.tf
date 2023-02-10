@@ -27,7 +27,8 @@ variable "access_key" {
 }
 
 locals {
-  do_fetch_secret = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
+  do_fetch_secret_access_key = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
+  do_fetch_secret_http_proxy_password = startswith(var.http_proxy_configuration.proxy_password, "arn:aws:secretsmanager:") ? true : false
 }
 
 variable "subnets" {
@@ -96,7 +97,7 @@ variable "default_tags" {
 }
 
 variable "collector_ca_certificate" {
-  description = "Configures the collector custom CA certificate"
+  description = "Uploads the collector custom CA certificate to the orchestrator"
   type = object({
     type  = string
     value = string
@@ -105,6 +106,52 @@ variable "collector_ca_certificate" {
   default = ({
     type  = "base64"
     value = ""
-    path  = "/ssl/cert.pem"
+    path  = "/ssl/collector_cert.pem"
+  })
+}
+
+variable "collector_configuration" {
+  description = "Advanced configuration options for the connection to the collector"
+  type = object({
+    ca_certificate = string
+  })
+  default = ({
+    ca_certificate = "" # /ssl/collector_cert.pem
+  })
+}
+
+variable "http_proxy_ca_certificate" {
+  description = "Uploads the HTTP proxy CA certificate to the orchestrator"
+  type = object({
+    type  = string
+    value = string
+    path  = string
+  })
+  default = ({
+    type  = "base64"
+    value = ""
+    path  = "/ssl/proxy_cert.pem"
+  })
+}
+
+variable "http_proxy_configuration" {
+  description = "Advanced configuration options for the connection to the HTTP proxy"
+  type = object({
+    proxy_host             = string
+    proxy_port             = string
+    proxy_user             = string
+    proxy_password         = string
+    ssl                    = string
+    ssl_verify_certificate = string
+    ca_certificate         = string
+  })
+  default = ({
+    proxy_host             = ""
+    proxy_port             = ""
+    proxy_user             = ""
+    proxy_password         = ""
+    ssl                    = ""
+    ssl_verify_certificate = ""
+    ca_certificate         = "" # /ssl/proxy_cert.pem
   })
 }

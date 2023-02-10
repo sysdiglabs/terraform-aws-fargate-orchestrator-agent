@@ -1,5 +1,5 @@
 locals {
-  secret_reference = local.do_fetch_secret ? split(":", var.access_key) : []
+  secret_reference = local.do_fetch_secret_access_key ? split(":", var.access_key) : []
 }
 
 resource "aws_iam_role" "orchestrator_agent_execution_role" {
@@ -8,7 +8,7 @@ resource "aws_iam_role" "orchestrator_agent_execution_role" {
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
 
   dynamic "inline_policy" {
-    for_each = local.do_fetch_secret ? ["SecretsManagerAccessKey"] : []
+    for_each = local.do_fetch_secret_access_key ? ["SecretsManagerAccessKey"] : []
     content {
       name = "root"
       policy = jsonencode({
