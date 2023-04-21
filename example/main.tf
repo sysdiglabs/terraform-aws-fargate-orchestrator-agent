@@ -29,8 +29,6 @@ data "sysdig_fargate_workload_agent" "instrumented" {
     }
   ])
 
-  sysdig_access_key = ""
-
   workload_agent_image = var.sysdig_workload_agent_image
 
   orchestrator_host = module.sysdig_orchestrator_agent.orchestrator_host
