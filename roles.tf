@@ -59,6 +59,15 @@ resource "aws_iam_role" "orchestrator_agent_execution_role" {
   tags = merge(var.tags, var.default_tags)
 }
 
+resource "aws_iam_role" "orchestrator_agent_autoscaling" {
+  // Deploy this resource conditionally
+  count = local.enable_autoscaling ? 1 : 0
+
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole"]
+  tags = merge(var.tags, var.default_tags)
+}
+
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]

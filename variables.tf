@@ -29,6 +29,7 @@ variable "access_key" {
 locals {
   do_fetch_secret_access_key = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
   do_fetch_secret_http_proxy_password = startswith(var.http_proxy_configuration.proxy_password, "arn:aws:secretsmanager:") ? true : false
+  enable_autoscaling = contains(["ECSServiceAverageCPUUtilization", "ECSServiceAverageMemoryUtilization"], var.autoscaling.target_metric) ? true : false
 }
 
 variable "subnets" {
@@ -153,5 +154,23 @@ variable "http_proxy_configuration" {
     ssl                    = ""
     ssl_verify_certificate = ""
     ca_certificate         = "" # /ssl/proxy_cert.pem
+  })
+}
+
+variable "autoscaling" {
+  description = "Enables TargetTracking Autoscaling"
+  type = object({
+    target_metric      = string
+    target_value       = string
+    max_capacity       = string
+    scale_in_cooldown  = string
+    scale_out_cooldown = string
+  })
+  default = ({
+    target_metric      = ""
+    target_value       = ""
+    max_capacity       = ""
+    scale_in_cooldown  = ""
+    scale_out_cooldown = ""
   })
 }
