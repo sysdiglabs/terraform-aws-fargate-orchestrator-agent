@@ -9,7 +9,7 @@ resource "aws_iam_role" "orchestrator_agent_execution_role" {
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
 
   dynamic "inline_policy" {
-    for_each = local.do_fetch_secret_access_key ? ["SecretsManagerAccessKey"] : []
+    for_each = toset(local.do_fetch_secret_access_key ? ["SecretsManagerAccessKey"] : [])
     content {
       name = "SysdigGetSecretAccessKey"
       policy = jsonencode({
@@ -33,7 +33,7 @@ resource "aws_iam_role" "orchestrator_agent_execution_role" {
   }
 
   dynamic "inline_policy" {
-    for_each = local.do_fetch_secret_http_proxy_password ? ["SysdigGetSecretHttpProxyPassword"] : []
+    for_each = toset(local.do_fetch_secret_http_proxy_password ? ["SysdigGetSecretHttpProxyPassword"] : [])
     content {
       name = "SysdigGetSecretHttpProxyPassword"
       policy = jsonencode({
