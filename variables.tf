@@ -27,9 +27,9 @@ variable "access_key" {
 }
 
 locals {
-  do_fetch_secret_access_key = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
+  do_fetch_secret_access_key          = startswith(var.access_key, "arn:aws:secretsmanager:") ? true : false
   do_fetch_secret_http_proxy_password = startswith(var.http_proxy_configuration.proxy_password, "arn:aws:secretsmanager:") ? true : false
-  enable_autoscaling = contains(["ECSServiceAverageCPUUtilization", "ECSServiceAverageMemoryUtilization"], var.autoscaling.target_metric) ? true : false
+  enable_autoscaling                  = contains(["ECSServiceAverageCPUUtilization", "ECSServiceAverageMemoryUtilization"], var.autoscaling.target_metric) ? true : false
 }
 
 variable "subnets" {
@@ -179,4 +179,16 @@ variable "autoscaling" {
     scale_in_cooldown  = ""
     scale_out_cooldown = ""
   })
+}
+
+variable "agent_log_level" {
+  description = "Orchestrator Agent log level. Can be one of: 'fatal', 'critical', 'error', 'warning', 'notice', 'info', 'debug', 'trace'"
+  type        = string
+  default     = "info"
+}
+
+variable "agent_extra_conf" {
+  description = "Orchestrator Agent extra configuration in YAML format"
+  type        = string
+  default     = ""
 }
