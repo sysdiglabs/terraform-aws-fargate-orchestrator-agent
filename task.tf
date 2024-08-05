@@ -3,7 +3,7 @@ locals {
   do_configure_connection_collector  = var.collector_configuration.ca_certificate != "" ? true : false
 
   do_upload_ca_certificate_http_proxy = var.http_proxy_ca_certificate.value != "" ? true : false
-  do_configure_connection_http_proxy = var.http_proxy_configuration.proxy_host != "" ? true : false
+  do_configure_connection_http_proxy  = var.http_proxy_configuration.proxy_host != "" ? true : false
 }
 
 locals {
@@ -16,7 +16,7 @@ locals {
     ] : [],
     local.do_configure_connection_http_proxy && local.do_fetch_secret_http_proxy_password ? [
       {
-        name = "PROXY_PASSWORD"
+        name      = "PROXY_PASSWORD"
         valueFrom = var.http_proxy_configuration.proxy_password
       }
     ] : [],
@@ -41,8 +41,14 @@ locals {
         value = var.agent_tags
       },
       {
-        name  = "ADDITIONAL_CONF",
-        value = format("agentino_port: %s", tostring(var.orchestrator_port))
+        name = "ADDITIONAL_CONF",
+        value = format(
+          "agentino_port: %s\nlog:\n file_priority: %s\n console_priority: %s\n%s",
+          tostring(var.orchestrator_port),
+          var.agent_log_level,
+          var.agent_log_level,
+          var.agent_extra_conf
+        )
       }
     ],
     local.do_fetch_secret_access_key ? [] : [
@@ -87,27 +93,27 @@ locals {
     ] : [],
     local.do_configure_connection_http_proxy ? [
       {
-        name = "PROXY_HOST"
+        name  = "PROXY_HOST"
         value = var.http_proxy_configuration.proxy_host
       },
       {
-        name = "PROXY_PORT"
+        name  = "PROXY_PORT"
         value = var.http_proxy_configuration.proxy_port
       },
       {
-        name = "PROXY_USER"
+        name  = "PROXY_USER"
         value = var.http_proxy_configuration.proxy_user
       },
       {
-        name = "PROXY_SSL"
+        name  = "PROXY_SSL"
         value = var.http_proxy_configuration.ssl
       },
       {
-        name = "PROXY_SSL_VERIFY_CERTIFICATE"
+        name  = "PROXY_SSL_VERIFY_CERTIFICATE"
         value = var.http_proxy_configuration.ssl_verify_certificate
       },
       {
-        name = "PROXY_CA_CERTIFICATE"
+        name  = "PROXY_CA_CERTIFICATE"
         value = var.http_proxy_configuration.ca_certificate
       },
     ] : [],
