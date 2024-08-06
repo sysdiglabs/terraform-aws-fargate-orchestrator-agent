@@ -97,6 +97,12 @@ variable "default_tags" {
   }
 }
 
+variable "lb_name" {
+  description = "Load Balancer name. Leave blank for an auto-generated name"
+  type        = string
+  default     = ""
+}
+
 variable "collector_ca_certificate" {
   description = "Uploads the collector custom CA certificate to the orchestrator"
   type = object({
