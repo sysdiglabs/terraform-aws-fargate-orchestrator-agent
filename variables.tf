@@ -204,3 +204,9 @@ variable "memory" {
   type        = string
   default     = "8192"
 }
+
+variable "log_retention_days" {
+  description = "Cloudwatch log group retention in days. See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#retention_in_days for acceptable values"
+  type        = string
+  default     = "0"
+}
