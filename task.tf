@@ -131,8 +131,8 @@ resource "aws_ecs_task_definition" "orchestrator_agent" {
   execution_role_arn       = aws_iam_role.orchestrator_agent_execution_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "2048"
-  memory                   = "8192"
+  cpu                      = var.cpu
+  memory                   = var.memory
 
   container_definitions = templatefile("${path.module}/container-definitions/orchestrator-agent.json", {
     agent_image       = var.agent_image
