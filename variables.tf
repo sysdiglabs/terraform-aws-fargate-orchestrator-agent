@@ -192,3 +192,15 @@ variable "agent_extra_conf" {
   type        = string
   default     = ""
 }
+
+variable "cpu" {
+  description = "ECS Task CPU allocation. See https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html for acceptable values"
+  type        = string
+  default     = "2048"
+}
+
+variable "memory" {
+  description = "ECS Task memory allocation.  See https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html for acceptable values"
+  type        = string
+  default     = "8192"
+}
