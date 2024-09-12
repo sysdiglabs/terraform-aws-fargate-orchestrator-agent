@@ -143,5 +143,9 @@ resource "aws_ecs_task_definition" "orchestrator_agent" {
     environment       = local.environment
   })
 
+  runtime_platform {
+    cpu_architecture = var.runtime_platform.cpu_architecture
+  }
+
   tags = merge(var.tags, var.default_tags)
 }

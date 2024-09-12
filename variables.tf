@@ -210,3 +210,13 @@ variable "log_retention_days" {
   type        = string
   default     = "0"
 }
+
+variable "runtime_platform" {
+  description = "The runtime platform configuration"
+  type = object({
+      cpu_architecture = string
+    })
+    default = ({
+      cpu_architecture = "X86_64"
+    })
+}
