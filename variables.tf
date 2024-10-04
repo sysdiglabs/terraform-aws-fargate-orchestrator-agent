@@ -214,9 +214,13 @@ variable "log_retention_days" {
 variable "runtime_platform" {
   description = "The runtime platform configuration"
   type = object({
-      cpu_architecture = string
-    })
-    default = ({
-      cpu_architecture = "X86_64"
-    })
+    cpu_architecture = string
+  })
+  default = ({
+    cpu_architecture = "X86_64"
+  })
+  validation {
+    condition     = contains(["ARM64", "X86_64"], var.runtime_platform.cpu_architecture)
+    error_message = "The runtime_platform.cpu_architecture must be either 'ARM64' or 'X86_64'"
+  }
 }
