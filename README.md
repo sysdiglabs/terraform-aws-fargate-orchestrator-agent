@@ -1,6 +1,5 @@
-# Deprecation Notice
-
-The Sysdig Orchestrator Agent will be deprecated in ** Q2 2025** in favour of Workload Agents connecting directly to Sysdig collectors.
+> [!WARNING]
+> The _Sysdig Orchestrator Agent_ will be deprecated in **June 2025** in favour of _Workload Agents_ connecting directly to Sysdig endpoints.
 
 # Sysdig Orchestrator Agent for ECS Fargate
 
